@@ -15,3 +15,7 @@
 body {
   color: rgb(var(--foreground-rgb));
 }
+
+.validation-failed .CodeMirror {
+  border: 2px solid #eb8e90 !important;
+}
