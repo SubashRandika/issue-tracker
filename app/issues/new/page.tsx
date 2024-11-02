@@ -3,7 +3,7 @@
 import ErrorMessage from "@/app/components/ErrorMessage";
 import { createIssueSchema } from "@/app/validationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Callout, TextField } from "@radix-ui/themes";
+import { Button, Callout, Spinner, TextField } from "@radix-ui/themes";
 import axios from "axios";
 import "easymde/dist/easymde.min.css";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import SimpleMDE from "react-simplemde-editor";
 import { z } from "zod";
+import { MdOutlineBugReport } from "react-icons/md";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
@@ -19,7 +20,7 @@ const NewIssuePage = () => {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<IssueForm>({
     resolver: zodResolver(createIssueSchema),
   });
@@ -62,7 +63,12 @@ const NewIssuePage = () => {
           )}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
-        <Button>Submit New Issue</Button>
+        <Button disabled={isSubmitting}>
+          <Spinner loading={isSubmitting}>
+            <MdOutlineBugReport size={20} />
+          </Spinner>
+          Submit New Issue
+        </Button>
       </form>
     </div>
   );
