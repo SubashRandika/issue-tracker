@@ -20,7 +20,7 @@ export async function PATCH(
   }
 
   const updatedIssue = await prisma.issue.update({
-    where: { id: parseInt(id) },
+    where: { id: issue.id },
     data: {
       title: body.title,
       description: body.description,
