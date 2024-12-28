@@ -34,7 +34,12 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
 
   const onHandleSubmit = handleSubmit(async (data: IssueFormData) => {
     try {
-      await axios.post("/api/issues", data);
+      if (issue) {
+        await axios.patch(`/api/issues/${issue.id}`, data);
+      } else {
+        await axios.post("/api/issues", data);
+      }
+
       router.push("/issues");
     } catch (error) {
       setError("An unexpected error occurred.");
@@ -74,7 +79,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           <Spinner loading={isSubmitting}>
             <MdOutlineBugReport size={20} />
           </Spinner>
-          Submit New Issue
+          {issue ? "Update Issue" : "Submit New Issue"}
         </Button>
       </form>
     </div>
