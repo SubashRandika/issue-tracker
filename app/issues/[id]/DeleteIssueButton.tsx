@@ -1,25 +1,28 @@
 "use client";
 
 import * as Toast from "@radix-ui/react-toast";
-import { AlertDialog, Button, Flex, Text } from "@radix-ui/themes";
+import { AlertDialog, Button, Flex, Spinner, Text } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
-import styles from "./Toast.module.css";
 import { GrClose } from "react-icons/gr";
 import { MdError } from "react-icons/md";
+import styles from "./Toast.module.css";
 
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   const router = useRouter();
   const [error, setError] = useState(false);
+  const [isDeleting, setDeleting] = useState(false);
 
   const handleDeleteIssue = async () => {
     try {
+      setDeleting(true);
       await axios.delete(`/api/issues/${issueId}`);
       router.push("/issues");
       router.refresh();
     } catch (error) {
+      setDeleting(false);
       setError(true);
     }
   };
@@ -28,9 +31,11 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red">
-            <FaTrashAlt size={16} />
-            Delete Issue
+          <Button color="red" disabled={isDeleting}>
+            <Spinner loading={isDeleting}>
+              <FaTrashAlt size={16} />
+            </Spinner>
+            {isDeleting ? "Deleting Issue" : "Delete Issue"}
           </Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content maxWidth="450px">
