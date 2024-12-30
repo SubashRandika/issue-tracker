@@ -36,7 +36,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
         <AlertDialog.Content maxWidth="450px">
           <AlertDialog.Title>Delete Issue</AlertDialog.Title>
           <AlertDialog.Description size="2">
-            Are you sure you want to delete this issue? Once deleted you cannot
+            Are you sure want to delete this issue? Once deleted you cannot
             undone.
           </AlertDialog.Description>
 
