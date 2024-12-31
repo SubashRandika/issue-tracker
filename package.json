@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "inf-dev": "infisical run --env=dev -- next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
