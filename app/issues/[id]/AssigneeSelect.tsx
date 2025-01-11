@@ -10,7 +10,7 @@ const AssigneeSelect = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const { data } = await axios.get("/api/users");
+      const { data } = await axios.get<User[]>("/api/users");
       setUsers(data);
     };
 
