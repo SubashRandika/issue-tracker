@@ -1,30 +1,36 @@
 "use client";
 
-import * as Toast from "@radix-ui/react-toast";
-import { AlertDialog, Button, Flex, Spinner, Text } from "@radix-ui/themes";
+import { AlertDialog, Button, Flex, Spinner } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { FaTrashAlt } from "react-icons/fa";
-import { GrClose } from "react-icons/gr";
-import { MdError } from "react-icons/md";
-import styles from "./Toast.module.css";
 
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   const router = useRouter();
-  const [error, setError] = useState(false);
   const [isDeleting, setDeleting] = useState(false);
 
   const handleDeleteIssue = async () => {
-    try {
-      setDeleting(true);
-      await axios.delete(`/api/issues/${issueId}`);
-      router.push("/issues/list");
-      router.refresh();
-    } catch (error) {
-      setDeleting(false);
-      setError(true);
-    }
+    toast.promise(
+      async () => {
+        setDeleting(true);
+        await axios.delete(`/api/issues/${issueId}`);
+      },
+      {
+        loading: "Deleting Issue...",
+        success: () => {
+          setDeleting(false);
+          router.push("/issues/list");
+          router.refresh();
+          return "Issue is successfully deleted";
+        },
+        error: (err) => {
+          setDeleting(false);
+          return "Error while deleting the issue";
+        },
+      }
+    );
   };
 
   return (
@@ -59,36 +65,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
           </Flex>
         </AlertDialog.Content>
       </AlertDialog.Root>
-      <Toast.Provider swipeDirection="down">
-        <Toast.Root
-          className={styles.Root}
-          open={error}
-          onOpenChange={setError}
-        >
-          <Toast.Title className={styles.Title}>
-            <Flex gap="2">
-              <MdError className={styles.Icon} size={24} />
-              <Text size="2">Deletion Failed</Text>
-            </Flex>
-          </Toast.Title>
-          <Toast.Description asChild>
-            <Text className={styles.Description} size="1">
-              This issue cannot be deleted. Please try again later.
-            </Text>
-          </Toast.Description>
-          <Toast.Action className={styles.Action} asChild altText="Close Toast">
-            <Button
-              size="1"
-              variant="soft"
-              color="gray"
-              onClick={() => setError(false)}
-            >
-              <GrClose />
-            </Button>
-          </Toast.Action>
-        </Toast.Root>
-        <Toast.Viewport className={styles.Viewport} />
-      </Toast.Provider>
+      <Toaster />
     </>
   );
 };
