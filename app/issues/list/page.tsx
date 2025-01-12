@@ -1,7 +1,8 @@
 import { IssueStatusBadge, Link } from "@/app/components";
 import prisma from "@/prisma/client";
-import { Table } from "@radix-ui/themes";
+import { Flex, Heading, Table } from "@radix-ui/themes";
 import IssueActions from "./IssueActions";
+import { GiBugNet } from "react-icons/gi";
 
 const IssuesPage = async () => {
   const issues = await prisma.issue.findMany();
@@ -23,22 +24,32 @@ const IssuesPage = async () => {
         </Table.Header>
 
         <Table.Body>
-          {issues.map((issue) => (
-            <Table.Row key={issue.id}>
-              <Table.RowHeaderCell>
-                <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
-                <div className="block md:hidden">
-                  <IssueStatusBadge status={issue.status} />
-                </div>
-              </Table.RowHeaderCell>
-              <Table.Cell className="hidden md:table-cell">
-                <IssueStatusBadge status={issue.status} />
-              </Table.Cell>
-              <Table.Cell className="hidden md:table-cell">
-                {issue.createdAt.toDateString()}
+          {issues.length === 0 ? (
+            <Table.Row>
+              <Table.Cell colSpan={3} align="center">
+                <Flex direction="column" gap="2" align="center">
+                  <Heading size="6">Issues not available</Heading>
+                  <Heading size="1">
+                    Haven&apos;t create an issue? You can create one via
+                    &apos;New Issue&apos;.
+                  </Heading>
+                  <GiBugNet fontSize={50} color="gray" />
+                </Flex>
               </Table.Cell>
             </Table.Row>
-          ))}
+          ) : (
+            issues.map((issue) => (
+              <Table.Row key={issue.id}>
+                <Table.Cell>{issue.title}</Table.Cell>
+                <Table.Cell className="hidden md:table-cell">
+                  <IssueStatusBadge status={issue.status} />
+                </Table.Cell>
+                <Table.Cell className="hidden md:table-cell">
+                  {issue.createdAt.toDateString()}
+                </Table.Cell>
+              </Table.Row>
+            ))
+          )}
         </Table.Body>
       </Table.Root>
     </>
