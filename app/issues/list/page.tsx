@@ -61,7 +61,14 @@ const IssuesPage = async ({
                   <IssueStatusBadge status={issue.status} />
                 </Table.Cell>
                 <Table.Cell className="hidden md:table-cell">
-                  {issue.createdAt.toDateString()}
+                  {new Intl.DateTimeFormat("en-US", {
+                    weekday: "short",
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                  }).format(new Date(issue.createdAt))}
                 </Table.Cell>
               </Table.Row>
             ))
