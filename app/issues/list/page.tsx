@@ -59,7 +59,7 @@ const IssuesPage = async ({
                   }}
                 >
                   {column.label}
-                  {column.value === searchParams.orderBy && (
+                  {searchParams && column.value === searchParams.orderBy && (
                     <HiSortAscending
                       fontSize="20"
                       className="inline ml-1"
