@@ -2,7 +2,7 @@ import { IssueStatusBadge } from "@/app/components";
 import Pagination from "@/app/components/Pagination";
 import prisma from "@/prisma/client";
 import { Issue, Status } from "@prisma/client";
-import { Flex, Heading, Table } from "@radix-ui/themes";
+import { Box, Flex, Heading, Table } from "@radix-ui/themes";
 import NextLink from "next/link";
 import { GiBugNet } from "react-icons/gi";
 import { HiSortAscending } from "react-icons/hi";
@@ -122,11 +122,13 @@ const IssuesPage = async ({
           )}
         </Table.Body>
       </Table.Root>
-      <Pagination
-        currentPage={page}
-        itemCount={issuesCount}
-        pageSize={pageSize}
-      />
+      <Box className="self-end">
+        <Pagination
+          itemCount={issuesCount}
+          pageSize={pageSize}
+          currentPage={page}
+        />
+      </Box>
     </Flex>
   );
 };

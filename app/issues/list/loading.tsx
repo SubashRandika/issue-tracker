@@ -3,7 +3,7 @@ import { Table } from "@radix-ui/themes";
 import IssueActions from "./IssueActions";
 
 const LoadingIssuesPage = () => {
-  const issues = Array.from({ length: 5 }, (_, i) => i + 1);
+  const issues = Array.from({ length: 10 }, (_, i) => i + 1);
 
   return (
     <>
@@ -25,16 +25,16 @@ const LoadingIssuesPage = () => {
           {issues.map((issue) => (
             <Table.Row key={issue}>
               <Table.RowHeaderCell>
-                <Skeleton />
+                <Skeleton height="1.3rem" />
                 <div className="block md:hidden">
-                  <Skeleton />
+                  <Skeleton height="1.3rem" />
                 </div>
               </Table.RowHeaderCell>
               <Table.Cell className="hidden md:table-cell">
-                <Skeleton />
+                <Skeleton height="1.3rem" />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <Skeleton />
+                <Skeleton height="1.3rem" />
               </Table.Cell>
             </Table.Row>
           ))}
