@@ -8,9 +8,8 @@ import {
   Table,
   Text,
 } from "@radix-ui/themes";
-import { IssueStatusBadge } from "./components";
 import { FiExternalLink } from "react-icons/fi";
-import { Header } from "@radix-ui/themes/dist/esm/components/table.js";
+import { IssueStatusBadge } from "./components";
 
 const LatestIssues = async () => {
   const latesIssues = await prisma.issue.findMany({
