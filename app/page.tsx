@@ -1,5 +1,5 @@
-import { Text } from "@radix-ui/themes";
+import LatestIssues from "./LatestIssues";
 
 export default function Home() {
-  return <Text>Home Dashboard</Text>;
+  return <LatestIssues />;
 }
