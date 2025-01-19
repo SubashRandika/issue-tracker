@@ -37,16 +37,20 @@ const IssueSummary = ({ open, inProgress, closed }: Props) => {
   return (
     <Flex gap="3" align="start">
       {container.map((summary) => (
-        <Card className="bg-teal-100" size="3" key={summary.status}>
+        <Card
+          style={{ backgroundColor: "var(--accent-4)" }}
+          size="3"
+          key={summary.status}
+        >
           <Flex direction="column" align="center" justify="center" gap="2">
-            <Text size="9" weight="medium" className="text-gray-900">
+            <Text size="9" weight="medium">
               <CountUp start={0} end={summary.value} duration={0.75} />
             </Text>
-            <Link href={`/issues/list?status=${summary.status}`} color="cyan">
+            <Link href={`/issues/list?status=${summary.status}`}>
               <IssueStatusBadge
                 status={summary.status}
                 size="3"
-                variant="outline"
+                variant="soft"
               />
             </Link>
           </Flex>
