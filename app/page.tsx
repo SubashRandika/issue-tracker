@@ -2,6 +2,7 @@ import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
 import IssueSummary from "./IssueSummary";
 import LatestIssues from "./LatestIssues";
+import IssueChart from "./IssueChart";
 
 const Home = async () => {
   const issueCounts = await prisma.issue.groupBy({
@@ -28,6 +29,11 @@ const Home = async () => {
     <>
       <LatestIssues />
       <IssueSummary
+        open={issues[Status.OPEN]}
+        inProgress={issues[Status.IN_PROGRESS]}
+        closed={issues[Status.CLOSED]}
+      />
+      <IssueChart
         open={issues[Status.OPEN]}
         inProgress={issues[Status.IN_PROGRESS]}
         closed={issues[Status.CLOSED]}
