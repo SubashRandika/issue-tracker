@@ -27,7 +27,7 @@ const Home = async () => {
   );
 
   return (
-    <Grid columns={{ initial: "1", md: "2" }} gap="5">
+    <Grid columns={{ initial: "1", md: "2" }} gap="5" mt="6">
       <Flex direction="column" gap="5">
         <IssueSummary
           open={issues[Status.OPEN]}

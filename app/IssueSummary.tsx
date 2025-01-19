@@ -1,7 +1,7 @@
 "use client";
 
 import { Status } from "@prisma/client";
-import { Card, Flex, Link, Text } from "@radix-ui/themes";
+import { Card, Flex, Grid, Link, Text } from "@radix-ui/themes";
 import CountUp from "react-countup";
 import { IssueStatusBadge } from "./components";
 
@@ -35,7 +35,7 @@ const IssueSummary = ({ open, inProgress, closed }: Props) => {
   ];
 
   return (
-    <Flex gap="3" align="start">
+    <Grid columns="3" gap="5" width="auto">
       {container.map((summary) => (
         <Card
           style={{ backgroundColor: "var(--accent-4)" }}
@@ -56,7 +56,7 @@ const IssueSummary = ({ open, inProgress, closed }: Props) => {
           </Flex>
         </Card>
       ))}
-    </Flex>
+    </Grid>
   );
 };
 
