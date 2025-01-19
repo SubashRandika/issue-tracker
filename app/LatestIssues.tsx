@@ -5,10 +5,8 @@ import {
   Flex,
   Heading,
   Link,
-  Table,
-  Text,
+  Table
 } from "@radix-ui/themes";
-import { FiExternalLink } from "react-icons/fi";
 import { IssueStatusBadge } from "./components";
 
 const LatestIssues = async () => {
@@ -43,10 +41,7 @@ const LatestIssues = async () => {
                   />
                   <Flex direction="column" gap="2" align="start">
                     <Link href={`/issues/${issue.id}`} color="blue">
-                      <Flex align="center" gap="1">
-                        <Text>{issue.title}</Text>
-                        <FiExternalLink />
-                      </Flex>
+                      {issue.title}
                     </Link>
                     <IssueStatusBadge status={issue.status} />
                   </Flex>
