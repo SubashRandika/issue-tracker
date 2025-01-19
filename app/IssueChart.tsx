@@ -33,7 +33,15 @@ const IssueChart = ({ open, inProgress, closed }: Props) => {
 
   return (
     <ResponsiveContainer width={"100%"} height={300}>
-      <BarChart data={data}>
+      <BarChart
+        data={data}
+        margin={{
+          top: 0,
+          right: 0,
+          left: -40,
+          bottom: -5,
+        }}
+      >
         <CartesianGrid strokeDasharray="3 3" />
         <Bar dataKey="value" barSize={60} style={{ fill: "var(--accent-9)" }} />
         <XAxis dataKey="label" />
