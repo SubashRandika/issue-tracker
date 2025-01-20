@@ -3,10 +3,10 @@ import prisma from "@/prisma/client";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
+import AssigneeSelect from "./AssigneeSelect";
 import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
-import AssigneeSelect from "./AssigneeSelect";
 
 interface Props {
   params: { id: string };
@@ -37,5 +37,18 @@ const IssueDetailsPage = async ({ params: { id } }: Props) => {
     </Grid>
   );
 };
+
+export async function generateMetadata({ params: { id } }: Props) {
+  const issue = await prisma.issue.findUnique({ where: { id: parseInt(id) } });
+
+  if (!issue) {
+    notFound();
+  }
+
+  return {
+    title: issue.title,
+    description: `Description of ${issue.title}`,
+  };
+}
 
 export default IssueDetailsPage;

@@ -1,6 +1,7 @@
 import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
 import { Flex, Grid } from "@radix-ui/themes";
+import { Metadata } from "next";
 import IssueChart from "./IssueChart";
 import IssueSummary from "./IssueSummary";
 import LatestIssues from "./LatestIssues";
@@ -46,3 +47,8 @@ const Home = async () => {
 };
 
 export default Home;
+
+export const metadata: Metadata = {
+  title: "Issue Tracker - Dashboard",
+  description: "View the summary of issues in your project.",
+};
