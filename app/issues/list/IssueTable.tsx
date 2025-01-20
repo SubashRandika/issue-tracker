@@ -1,6 +1,6 @@
 import { IssueStatusBadge } from "@/app/components";
 import { Issue, Status } from "@prisma/client";
-import { Flex, Heading, Table } from "@radix-ui/themes";
+import { Flex, Heading, Link, Table, Text } from "@radix-ui/themes";
 import NextLink from "next/link";
 import { GiBugNet } from "react-icons/gi";
 import { HiSortAscending } from "react-icons/hi";
@@ -65,7 +65,11 @@ const IssueTable = ({ searchParams, issues }: Props) => {
         ) : (
           issues.map((issue) => (
             <Table.Row key={issue.id}>
-              <Table.Cell>{issue.title}</Table.Cell>
+              <Table.Cell>
+                <Link href={`/issues/${issue.id}`} color="blue">
+                  <Text>{issue.title}</Text>
+                </Link>
+              </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 <IssueStatusBadge status={issue.status} />
               </Table.Cell>
